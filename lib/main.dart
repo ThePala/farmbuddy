@@ -2,13 +2,10 @@ import 'package:farmbuddy/read.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:csv/csv.dart';
+
 
 
 class MyApp extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,8 +25,10 @@ class MyApp extends StatelessWidget {
             fontSize: 25.0,
           ),
         ),
-        inputDecorationTheme: InputDecorationTheme(
-          floatingLabelStyle: TextStyle(color: Colors.white38),
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(),
+          labelStyle: TextStyle(color: Colors.white70),
+          floatingLabelStyle: TextStyle(color: Colors.white70),
         ),
       ),
       home: Scaffold(
@@ -56,12 +55,17 @@ class _InputPageState extends State<InputPage> {
   final ButtonStyle _bStyle = ButtonStyle(
     minimumSize: MaterialStateProperty.all<Size>(const Size(200, 70)), // Define the minimum size of the button
     maximumSize: MaterialStateProperty.all<Size>(const Size(300, 70)),
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.white10),
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent),
     textStyle: MaterialStateProperty.all<TextStyle>(
       const TextStyle(fontSize: 17.5),
     ),
-  );
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0), // Adjust the value for desired roundness
+        ),
+      )
+      );
 
   Future<void> _submitData() async {
     try {
@@ -108,16 +112,14 @@ class _InputPageState extends State<InputPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(
+                decoration:  const InputDecoration(
                   labelText: 'Name',
-                  // Set text style for the input text
-                  hintStyle: TextStyle(color: Colors.white),
                   // Set cursor color
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
@@ -125,13 +127,11 @@ class _InputPageState extends State<InputPage> {
                 ),
                 style: _wTextStyle,
               ),
-              SizedBox(height: 18.0),
+              const SizedBox(height: 18.0),
               TextField(
                 controller: xCoordinateController,
-                decoration: const InputDecoration(
+                decoration:  const InputDecoration(
                   labelText: 'X Coordinate',floatingLabelAlignment: FloatingLabelAlignment.center,
-                  // Set text style for the input text
-                  hintStyle: TextStyle(color: Colors.white),
                   // Set cursor color
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
@@ -140,13 +140,11 @@ class _InputPageState extends State<InputPage> {
                 keyboardType: TextInputType.number,
                 style: _wTextStyle,
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextField(
                 controller: yCoordinateController,
-                decoration: const InputDecoration(
+                decoration:  const InputDecoration(
                   labelText: 'Y Coordinate',floatingLabelAlignment: FloatingLabelAlignment.center,
-                  // Set text style for the input text
-                  hintStyle: TextStyle(color: Colors.white),
                   // Set cursor color
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
@@ -155,13 +153,11 @@ class _InputPageState extends State<InputPage> {
                 keyboardType: TextInputType.number,
                 style: _wTextStyle,
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextField(
                 controller: sectorNumberController,
-                decoration: const InputDecoration(
+                decoration:  const InputDecoration(
                   labelText: 'Sector Number',floatingLabelAlignment: FloatingLabelAlignment.center,
-                  // Set text style for the input text
-                  hintStyle: TextStyle(color: Colors.white),
                   // Set cursor color
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
@@ -170,21 +166,23 @@ class _InputPageState extends State<InputPage> {
                 keyboardType: TextInputType.number,
                 style: _wTextStyle,
               ),
-              SizedBox(height: 60.0),
-              ElevatedButton(
+              const SizedBox(height: 60.0),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.add_box),
                 onPressed: _submitData,
-                child: Text('Submit'),
                 style: _bStyle,
+                label: const Text('Submit'),
               ),
-              SizedBox(height: 20.0),
-              ElevatedButton(style: _bStyle,
+              const SizedBox(height: 20.0),
+              ElevatedButton.icon(style: _bStyle,
                   onPressed: (){
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CsvReaderPage()),
                 );
               },
-                  child: Text("Read CSV")
+                  icon: const Icon(Icons.ac_unit_rounded),
+                  label: const Text("Display Data")
             ),
             ],
           ),

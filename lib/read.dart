@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:flutter/services.dart' show rootBundle;
+//import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:farmbuddy/triad.dart';
 
 class CsvReaderPage extends StatefulWidget {
   @override
@@ -56,8 +55,8 @@ class _CsvReaderPageState extends State<CsvReaderPage> {
   }
   //COLOR STYLES FOR THIS PAGE
 
-  final TextStyle _wTextStyle = TextStyle(color: Colors.white, fontSize: 18.0);
-  final TextStyle _headStyle = TextStyle(color: Colors.white, fontSize: 24.0,fontWeight: FontWeight.w700);
+  final TextStyle _wTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0);
+  final TextStyle _headStyle = const TextStyle(color: Colors.white, fontSize: 24.0,fontWeight: FontWeight.w700);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
