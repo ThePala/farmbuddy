@@ -55,6 +55,12 @@ class _CsvReaderPageState extends State<CsvReaderPage> {
   }
   //COLOR STYLES FOR THIS PAGE
 
+  final LinearGradient _buttonGradient = LinearGradient(
+    colors: [Colors.deepPurpleAccent[700]!,Colors.tealAccent[700]!, Colors.lightGreenAccent[700]!], // Adjust colors as desired
+    // Adjust colors as desired
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
   final TextStyle _wTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0);
   final TextStyle _headStyle = const TextStyle(color: Colors.white, fontSize: 24.0,fontWeight: FontWeight.w700);
   @override
@@ -62,7 +68,10 @@ class _CsvReaderPageState extends State<CsvReaderPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('FarmBuddy'),
+        title: ShaderMask(
+            shaderCallback: (bounds) =>
+                _buttonGradient.createShader(bounds),
+            child: const Text('FarmHelper',style: TextStyle(color: Colors.white))),
       ),
       body: csvData.isEmpty
           ? Center(
@@ -105,7 +114,7 @@ class _CsvReaderPageState extends State<CsvReaderPage> {
                         ],
                       ),
                     ),
-                    Divider(color: Colors.white,height:35), // Divider for each row
+                    const Divider(color: Colors.white,height:35), // Divider for each row
                   ],
                 );
               },

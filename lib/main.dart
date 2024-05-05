@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue, // Maintain primary color
         fontFamily: 'SFUI', // Maintain font family
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0x14BBBBBB),
           foregroundColor: Colors.black,
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.w700,
@@ -51,12 +51,24 @@ class _InputPageState extends State<InputPage> {
   final TextEditingController sectorNumberController = TextEditingController();
 
   //COLOR and SIZE DEFINITIONS
+  final LinearGradient _buttonGradient = LinearGradient(
+    colors: [Colors.deepPurpleAccent[700]!,Colors.tealAccent[700]!, Colors.lightGreenAccent[700]!], // Adjust colors as desired
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  final LinearGradient _buttonGradient2 = const LinearGradient(
+    colors: [Colors.white38,Colors.grey, Colors.white38],
+    begin: Alignment.bottomLeft,
+    end: Alignment.topRight,
+    stops: [0.2,0.5,1]
+  );
+
   final TextStyle _wTextStyle = const TextStyle(color: Colors.white, fontSize: 18.0);
   final ButtonStyle _bStyle = ButtonStyle(
     minimumSize: MaterialStateProperty.all<Size>(const Size(200, 70)), // Define the minimum size of the button
     maximumSize: MaterialStateProperty.all<Size>(const Size(300, 70)),
     backgroundColor: MaterialStateProperty.all<Color>(Colors.white10),
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent),
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
     textStyle: MaterialStateProperty.all<TextStyle>(
       const TextStyle(fontSize: 17.5),
     ),
@@ -65,7 +77,7 @@ class _InputPageState extends State<InputPage> {
           borderRadius: BorderRadius.circular(10.0), // Adjust the value for desired roundness
         ),
       )
-      );
+  );
 
   Future<void> _submitData() async {
     try {
@@ -108,7 +120,10 @@ class _InputPageState extends State<InputPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('FarmBuddy'),
+        title: ShaderMask(
+          shaderCallback: (bounds) =>
+            _buttonGradient.createShader(bounds),
+            child: const Text('FarmHelper',style: TextStyle(color: Colors.white))),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -119,10 +134,10 @@ class _InputPageState extends State<InputPage> {
               TextField(
                 controller: nameController,
                 decoration:  const InputDecoration(
-                  labelText: 'Name',
+                  labelText: 'Name',floatingLabelAlignment: FloatingLabelAlignment.center,
                   // Set cursor color
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green),
+                    borderSide: BorderSide(color: Colors.teal),
                   ),
                 ),
                 style: _wTextStyle,
@@ -168,10 +183,14 @@ class _InputPageState extends State<InputPage> {
               ),
               const SizedBox(height: 60.0),
               ElevatedButton.icon(
-                icon: const Icon(Icons.add_box),
+                icon: ShaderMask(shaderCallback: (bounds) =>
+                    _buttonGradient.createShader(bounds),child: const Icon(Icons.add_box)),
                 onPressed: _submitData,
                 style: _bStyle,
-                label: const Text('Submit'),
+                label: ShaderMask(
+                    shaderCallback: (bounds) =>
+                        _buttonGradient2.createShader(bounds),
+                    child: const Text('Submit',style: TextStyle(color: Colors.white))),
               ),
               const SizedBox(height: 20.0),
               ElevatedButton.icon(style: _bStyle,
@@ -181,8 +200,12 @@ class _InputPageState extends State<InputPage> {
                   MaterialPageRoute(builder: (context) => CsvReaderPage()),
                 );
               },
-                  icon: const Icon(Icons.ac_unit_rounded),
-                  label: const Text("Display Data")
+                  icon: ShaderMask(shaderCallback: (bounds) =>
+                      _buttonGradient.createShader(bounds),child: const Icon(Icons.ac_unit_rounded)),
+                  label: ShaderMask(
+                      shaderCallback: (bounds) =>
+                          _buttonGradient2.createShader(bounds),
+                      child: const Text('Display',style: TextStyle(color: Colors.white))),
             ),
             ],
           ),
