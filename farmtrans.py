@@ -18,7 +18,7 @@ transformations = {
     "1B": (30, 0),
     "1C": (49, 3), # No specific position mentioned for 1C, keeping default
     "2": (15, 3),
-    "2A": (15, 29),
+    "2A": (15, 32),
     "2B": (15, 0),
     "3": (10, 3), # Adding an example shift for other sectors
     "3A": (9, 0),
